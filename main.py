@@ -1,4 +1,4 @@
-'''lol'''
+# '''lol'''
 def get_f(): # lol
     '''pep'''
     return 0

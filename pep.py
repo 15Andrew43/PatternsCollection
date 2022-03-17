@@ -1,4 +1,4 @@
-'''qazwsx'''
+# '''qazwsx'''
 def get_g():
     '''zxcv'''
     print("qwer")
