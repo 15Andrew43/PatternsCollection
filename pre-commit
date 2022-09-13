@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#должен лежать файл в по пути /Users/andrew_borovets/Desktop/PROGA/MIPT/course3/PROM_PROGA/vcs/Git-hooks/PatternsCollection/.git/hooks/pre-commit
+
+
+status=$(git status -s)
+# echo $status
+# echo 
+
+# поменяли файлы сделали git add (допустим они НЕ проходят провенку score >= 9)
+# потом поменяли этиже файлы и теперь они проходят проверку, но мы забыли сделать git add 
+# как раз для таких сдучаем сделал эти ifы
+if [[ $status == *"AM"* ]]
+then 
+	echo "you should do git add <file1> <file2> ..."
+	exit 1
+fi
+if [[ $status == *"MM"* ]]
+then 
+	echo "you should do git add <file1> <file2> ..."
+	exit 1
+fi
+
+
+added=$(echo $status | grep -o '[A|M] \S*.py')
+# echo $added
+# echo 
+output=$(pylint -r n -s y $added)
+# echo $output
+# echo 
+score=$(echo $output | grep -o 'Your code has been rated at \d*\.\d*' | grep -o '\d*\.\d*')
+# echo $score
+# echo 
+
+big_score=$(echo $(echo "$score * 100 + 1" | bc -l) | grep -o '\d*\.' | grep -o '\d*')
+# echo $big_score
+# echo 
+
+if [ $big_score -lt 900 ]
+then 
+	echo "your score is less than 9.0"
+	exit 1
+fi

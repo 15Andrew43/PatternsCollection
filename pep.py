@@ -1,5 +1,5 @@
-# '''qazwsx'''
-def get_g():
+'''qazwsx'''
+def get_g(): # ascsq
     '''zxcv'''
     print("qwer")
 
